@@ -6,7 +6,7 @@ onebigplayer@gmail.com
 Here are the sources for the iPhone app One Big Player.
 It is written in Swift using SwiftUI and the Model-View-ViewModel paradigm.
 
-If you make fun changes or fixes please let me know and I will incorporate them into my try and (hopefully!) release them to the app store.
+If you make fun changes or fixes please let me know and I will incorporate them into my tree and (hopefully!) release them to the app store.
 
 From the App Description -
 -----
