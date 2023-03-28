@@ -16,10 +16,7 @@
 		712E775229817B8800F016D8 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712E775129817B8800F016D8 /* LaunchScreenView.swift */; };
 		712E77542981935F00F016D8 /* ArtistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712E77532981935F00F016D8 /* ArtistsView.swift */; };
 		713FB81A29C3AC5000117C9D /* ResumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713FB81929C3AC5000117C9D /* ResumeView.swift */; };
-		7153725B298C746A00EE7081 /* test.md in Resources */ = {isa = PBXBuildFile; fileRef = 7153725A298C746A00EE7081 /* test.md */; };
-		715F14062996F10B00A2B87F /* CarPlay-App-Programming-Guide.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 715F14052996F10B00A2B87F /* CarPlay-App-Programming-Guide.pdf */; };
 		716D2EF029AA9B3200751B66 /* SwiftUIIndexedList in Frameworks */ = {isa = PBXBuildFile; productRef = 716D2EEF29AA9B3200751B66 /* SwiftUIIndexedList */; };
-		7174B710299E942100994587 /* Swiftful_thinking_class.md in Resources */ = {isa = PBXBuildFile; fileRef = 7174B70F299E942100994587 /* Swiftful_thinking_class.md */; };
 		717A5B42298C21F20004DA18 /* AlbumsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717A5B41298C21F20004DA18 /* AlbumsView.swift */; };
 		717A5B46298C38EE0004DA18 /* PlaylistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717A5B45298C38EE0004DA18 /* PlaylistsView.swift */; };
 		71891EB829B4FB21007DF502 /* TrackDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71891EB729B4FB21007DF502 /* TrackDetailsView.swift */; };
@@ -39,13 +36,7 @@
 		712E77532981935F00F016D8 /* ArtistsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistsView.swift; sourceTree = "<group>"; };
 		712E7755298197C700F016D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		713FB81929C3AC5000117C9D /* ResumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeView.swift; sourceTree = "<group>"; };
-		71537259298C721100EE7081 /* MPMedia_pointers.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = MPMedia_pointers.md; sourceTree = "<group>"; };
-		7153725A298C746A00EE7081 /* test.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = test.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
-		715F14052996F10B00A2B87F /* CarPlay-App-Programming-Guide.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "CarPlay-App-Programming-Guide.pdf"; sourceTree = "<group>"; };
-		716D2EF129AA9BF500751B66 /* SwiftUIIndexedList.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SwiftUIIndexedList.md; sourceTree = "<group>"; };
-		7174B70F299E942100994587 /* Swiftful_thinking_class.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Swiftful_thinking_class.md; sourceTree = "<group>"; };
 		717A5B41298C21F20004DA18 /* AlbumsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsView.swift; sourceTree = "<group>"; };
-		717A5B44298C32410004DA18 /* objC_methods_list.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = objC_methods_list.md; sourceTree = "<group>"; };
 		717A5B45298C38EE0004DA18 /* PlaylistsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistsView.swift; sourceTree = "<group>"; };
 		71891EB729B4FB21007DF502 /* TrackDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailsView.swift; sourceTree = "<group>"; };
 		71A51A4029A92100007F4483 /* NewestAlbumsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewestAlbumsView.swift; sourceTree = "<group>"; };
@@ -83,7 +74,6 @@
 		712E773A298177A800F016D8 /* BigPlayer1 */ = {
 			isa = PBXGroup;
 			children = (
-				717A5B43298C320B0004DA18 /* Tech_Notes */,
 				712E7755298197C700F016D8 /* Info.plist */,
 				712E773B298177A800F016D8 /* BigPlayer1App.swift */,
 				712E774A2981780400F016D8 /* Views */,
@@ -141,19 +131,6 @@
 				712E774D298179B700F016D8 /* SLFLog.swift */,
 			);
 			path = Utilities;
-			sourceTree = "<group>";
-		};
-		717A5B43298C320B0004DA18 /* Tech_Notes */ = {
-			isa = PBXGroup;
-			children = (
-				7174B70F299E942100994587 /* Swiftful_thinking_class.md */,
-				715F14052996F10B00A2B87F /* CarPlay-App-Programming-Guide.pdf */,
-				7153725A298C746A00EE7081 /* test.md */,
-				717A5B44298C32410004DA18 /* objC_methods_list.md */,
-				71537259298C721100EE7081 /* MPMedia_pointers.md */,
-				716D2EF129AA9BF500751B66 /* SwiftUIIndexedList.md */,
-			);
-			path = Tech_Notes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,10 +197,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7153725B298C746A00EE7081 /* test.md in Resources */,
 				712E7743298177AA00F016D8 /* Preview Assets.xcassets in Resources */,
-				7174B710299E942100994587 /* Swiftful_thinking_class.md in Resources */,
-				715F14062996F10B00A2B87F /* CarPlay-App-Programming-Guide.pdf in Resources */,
 				712E7740298177AA00F016D8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
