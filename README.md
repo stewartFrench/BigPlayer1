@@ -1,4 +1,4 @@
-# BigPlayer1
+# One Big Player
 by Stewart French
 
 https://onebigplayer.com/
