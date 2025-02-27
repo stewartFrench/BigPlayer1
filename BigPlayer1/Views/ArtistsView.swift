@@ -106,9 +106,10 @@ struct ArtistsView: View
         Divider()
 
         Spacer()
-        Spacer()
 
         verticalAZsliderArtists( scrollTo: $thumbedArtist )
+          .frame( minWidth: 0, maxWidth: 20,
+                 minHeight: 0, maxHeight: .infinity )
 
       } // HStack
     } // ZStack
@@ -188,99 +189,139 @@ struct verticalAZsliderArtists: View
   
   var body: some View
   {
-    VStack
-    {
+    GeometryReader
+    { geometry in
       VStack
       {
-        Text( "A" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[0] }
-        .font(.system(size: 20))
-        Text( "B" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[1] }
-        .font(.system(size: 20))
-        Text( "C" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[2] }
-        .font(.system(size: 20))
-        Text( "D" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[3] }
-        .font(.system(size: 20))
-        Text( "E" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[4] }
-        .font(.system(size: 20))
-        Text( "F" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[5] }
-        .font(.system(size: 20))
-        Text( "G" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[6] }
-        .font(.system(size: 20))
-        Text( "H" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[7] }
-        .font(.system(size: 20))
-        Text( "I" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[8] }
-        .font(.system(size: 20))
+        VStack
+        {
+          Spacer()
+          Text( "A" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[0] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "B" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[1] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "C" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[2] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "D" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[3] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "E" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[4] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "F" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[5] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "G" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[6] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "H" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[7] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "I" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[8] }
+          .font(.system(size: 12))
+        }
+        VStack
+        {
+          Spacer()
+          Text( "J" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[9] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "K" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[10] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "L" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[11] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "M" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[12] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "N" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[13] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "O" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[14] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "P" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[15] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "Q" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[16] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "R" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[17] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "S" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[18] }
+          .font(.system(size: 12))
+        }
+        VStack
+        {
+          Spacer()
+          Text( "T" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[19] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "U" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[20] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "V" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[21] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "W" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[22] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "X" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[23] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "Y" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[24] }
+          .font(.system(size: 12))
+          Spacer()
+          Text( "Z" ).onTapGesture {
+            scrollTo = musicVM.MMArtistsAlphaMap[25] }
+          .font(.system(size: 12))
+          Spacer()
+        }
       }
-      VStack
-      {
-        Text( "J" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[9] }
-        .font(.system(size: 20))
-        Text( "K" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[10] }
-        .font(.system(size: 20))
-        Text( "L" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[11] }
-        .font(.system(size: 20))
-        Text( "M" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[12] }
-        .font(.system(size: 20))
-        Text( "N" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[13] }
-        .font(.system(size: 20))
-        Text( "O" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[14] }
-        .font(.system(size: 20))
-        Text( "P" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[15] }
-        .font(.system(size: 20))
-        Text( "Q" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[16] }
-        .font(.system(size: 20))
-        Text( "R" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[17] }
-        .font(.system(size: 20))
-        Text( "S" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[18] }
-        .font(.system(size: 20))
-      }
-      VStack
-      {
-        Text( "T" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[19] }
-        .font(.system(size: 20))
-        Text( "U" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[20] }
-        .font(.system(size: 20))
-        Text( "V" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[21] }
-        .font(.system(size: 20))
-        Text( "W" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[22] }
-        .font(.system(size: 20))
-        Text( "X" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[23] }
-        .font(.system(size: 20))
-        Text( "Y" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[24] }
-        .font(.system(size: 20))
-        Text( "Z" ).onTapGesture {
-          scrollTo = musicVM.MMArtistsAlphaMap[25] }
-        .font(.system(size: 20))
-      }
-    }
-    .foregroundColor( .white )
-    .background( .black )
-    
+      .foregroundColor( .white )
+      .background( .black )
+      .gesture(DragGesture(minimumDistance: 0)
+        .onChanged({ value in
+          let yPercentage = min(max(0,
+                  Float(value.location.y / geometry.size.height * 100)), 100)
+//          print( "yPercentage = \(yPercentage)")
+          let tScrollTo = musicVM.MMArtistsAlphaMap[
+                       Int( ( yPercentage / 100 ) * 25 ) ]
+//          print( "tScrollTo = \(tScrollTo)")
+          scrollTo = tScrollTo
+        }))  // .gesture
+
+    } // GeometryReader
   } // body
   
 } // verticalAZsliderArtists

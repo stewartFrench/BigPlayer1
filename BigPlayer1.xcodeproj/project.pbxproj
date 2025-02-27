@@ -16,7 +16,6 @@
 		712E775229817B8800F016D8 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712E775129817B8800F016D8 /* LaunchScreenView.swift */; };
 		712E77542981935F00F016D8 /* ArtistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712E77532981935F00F016D8 /* ArtistsView.swift */; };
 		713FB81A29C3AC5000117C9D /* ResumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713FB81929C3AC5000117C9D /* ResumeView.swift */; };
-		716D2EF029AA9B3200751B66 /* SwiftUIIndexedList in Frameworks */ = {isa = PBXBuildFile; productRef = 716D2EEF29AA9B3200751B66 /* SwiftUIIndexedList */; };
 		717A5B42298C21F20004DA18 /* AlbumsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717A5B41298C21F20004DA18 /* AlbumsView.swift */; };
 		717A5B46298C38EE0004DA18 /* PlaylistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717A5B45298C38EE0004DA18 /* PlaylistsView.swift */; };
 		71891EB829B4FB21007DF502 /* TrackDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71891EB729B4FB21007DF502 /* TrackDetailsView.swift */; };
@@ -48,7 +47,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				716D2EF029AA9B3200751B66 /* SwiftUIIndexedList in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,7 +148,6 @@
 			);
 			name = BigPlayer1;
 			packageProductDependencies = (
-				716D2EEF29AA9B3200751B66 /* SwiftUIIndexedList */,
 			);
 			productName = BigPlayer1;
 			productReference = 712E7738298177A800F016D8 /* BigPlayer1.app */;
@@ -164,7 +161,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					712E7737298177A800F016D8 = {
 						CreatedOnToolsVersion = 14.2;
@@ -181,7 +178,6 @@
 			);
 			mainGroup = 712E772F298177A800F016D8;
 			packageReferences = (
-				716D2EEE29AA9B3200751B66 /* XCRemoteSwiftPackageReference "SwiftUIIndexedList" */,
 			);
 			productRefGroup = 712E7739298177A800F016D8 /* Products */;
 			projectDirPath = "";
@@ -260,9 +256,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -320,9 +318,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -367,6 +367,7 @@
 				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stewart.french.BigPlayer1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -403,6 +404,7 @@
 				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stewart.french.BigPlayer1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -435,25 +437,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		716D2EEE29AA9B3200751B66 /* XCRemoteSwiftPackageReference "SwiftUIIndexedList" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ciaranrobrien/SwiftUIIndexedList";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		716D2EEF29AA9B3200751B66 /* SwiftUIIndexedList */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 716D2EEE29AA9B3200751B66 /* XCRemoteSwiftPackageReference "SwiftUIIndexedList" */;
-			productName = SwiftUIIndexedList;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 712E7730298177A800F016D8 /* Project object */;
 }

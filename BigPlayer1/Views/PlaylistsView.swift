@@ -115,6 +115,8 @@ struct PlaylistsView: View
           Spacer()
 
           verticalAZsliderPlaylists( scrollTo: $thumbedPlaylist )
+            .frame(minWidth: 0, maxWidth: 20)
+
         } // HStack
     } // ZStack
 
@@ -192,99 +194,140 @@ struct verticalAZsliderPlaylists: View
   
   var body: some View
   {
+    GeometryReader
+    { geometry in
+
     VStack
     {
       VStack
       {
+        Spacer()
         Text( "A" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[0] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "B" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[1] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "C" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[2] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "D" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[3] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "E" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[4] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "F" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[5] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "G" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[6] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "H" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[7] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "I" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[8] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
       }
       VStack
       {
+        Spacer()
         Text( "J" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[9] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "K" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[10] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "L" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[11] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "M" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[12] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "N" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[13] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "O" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[14] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "P" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[15] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "Q" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[16] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "R" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[17] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "S" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[18] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
       }
       VStack
       {
+        Spacer()
         Text( "T" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[19] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "U" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[20] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "V" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[21] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "W" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[22] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "X" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[23] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "Y" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[24] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
         Text( "Z" ).onTapGesture {
           scrollTo = musicVM.MMPlaylistsAlphaMap[25] }
-        .font(.system(size: 20))
+        .font(.system(size: 12))
+        Spacer()
       }
     }
     .foregroundColor( .white )
     .background( .black )
-    
+          .gesture(DragGesture(minimumDistance: 0)
+        .onChanged({ value in
+          let yPercentage = min(max(0,
+                  Float(value.location.y / geometry.size.height * 100)), 100)
+//          print( "yPercentage = \(yPercentage)")
+          let tScrollTo = musicVM.MMPlaylistsAlphaMap[
+                       Int( ( yPercentage / 100 ) * 25 ) ]
+//          print( "tScrollTo = \(tScrollTo)")
+          scrollTo = tScrollTo
+        }))  // .gesture
+
+    } // GeometryReader
   } // body
   
 } // verticalAZslider
