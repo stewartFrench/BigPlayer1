@@ -15,6 +15,7 @@ struct ResumeView: View
   @State var MusicStateChanged : Bool = false
 
   @State var elapsedTrackTime : Float = 0
+  @State var countdownTime : Double = 0
 
   @State var timer = Timer.publish(
     every: 0.5,
@@ -22,6 +23,9 @@ struct ResumeView: View
     in: .common ).autoconnect()
 
   @State var scrollToCurrentTrack : Bool = false
+
+  @State var countdownTimeMinutes : String = ""
+  @State var countdownTimeSeconds : String = ""
 
   @State var notAuthorized : Bool = false
 
@@ -185,12 +189,20 @@ struct ResumeView: View
       //-------------------------------------------
       // Progress Bar
 
-      ProgressView(
-        value: elapsedTrackTime,
-        total: 1.0 )
-      .accentColor(Color.green)
-      .background( .black)
-      .scaleEffect(x: 1, y: 10, anchor: .bottom)
+      ZStack( alignment: .bottom )
+      {
+        ProgressView(
+          value: elapsedTrackTime,
+          total: 1.0 )
+        .accentColor(Color.green)
+        .background( .black)
+        .scaleEffect(x: 1, y: 10, anchor: .bottom)
+
+        Text( countdownTimeMinutes + countdownTimeSeconds )
+        .font(.body)
+        .monospacedDigit( )
+
+      }  //ZStack
 
       .onReceive( timer,
                   perform:
@@ -208,7 +220,16 @@ struct ResumeView: View
         {
           elapsedTrackTime = 0.0
         }
+        countdownTime =
+           musicVM.durationOfSelectedTrack() -
+             musicVM.elapsedTimeOfSelectedTrack()
         MusicStateChanged = !MusicStateChanged
+
+        let tMinutes = Int(countdownTime) / 60
+        let tSeconds = Int(countdownTime) % 60
+
+        countdownTimeMinutes = "\(tMinutes)m"
+        countdownTimeSeconds = "\(tSeconds)s"
 
       } )  // onReceive
 

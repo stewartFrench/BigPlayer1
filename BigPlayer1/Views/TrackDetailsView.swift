@@ -106,6 +106,7 @@ struct TrackDetailsView: View
               Text("\(countdownTimeMinutes) \(countdownTimeSeconds)" )
             }
             .font( .largeTitle )
+            .monospacedDigit()
           } // HStack
 
           Divider()
