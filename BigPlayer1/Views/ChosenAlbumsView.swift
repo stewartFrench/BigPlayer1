@@ -1,5 +1,5 @@
 //
-//  AlbumsView.swift
+//  ChosenAlbumsView.swift
 //  BigPlayer1
 //
 //  Created by Stewart French on 2/2/23.
@@ -8,7 +8,7 @@
 import SwiftUI
   
 //--------------------------------------------
-struct AlbumsView: View
+struct ChosenAlbumsView: View
 {
   @EnvironmentObject var musicVM : MusicViewModel
   
@@ -20,6 +20,7 @@ struct AlbumsView: View
   
   @State var notAuthorized : Bool = false
 
+  @State private var isChosen = false
   
   //-------------------
   var body: some View
@@ -59,7 +60,7 @@ struct AlbumsView: View
                           Button(
                             action:
                             {
-                              musicVM.chooseAlbum( 
+                              musicVM.unchooseAlbum( 
                                   chosenAlbumIndex: feIndex )
                             }) 
                             {
@@ -82,24 +83,23 @@ struct AlbumsView: View
                           } // Button
                           .offset( y: -6 )
 
-                        Text(musicVM.getAlbumName(index: feIndex))
-                          .font(.system(size: 36.0))
-                          .frame(
-                            maxWidth: .infinity,
-                            minHeight: 50,
-                            maxHeight: .infinity,
-                            alignment: .leading )
-                          .multilineTextAlignment(.leading)
-                          .lineLimit( 3 )
-                          .foregroundColor(
-                            tSelectedAlbum==feIndex ?
-                              Color(uiColor: .green) : .white )
-                          .background(
-                            tSelectedAlbum==feIndex ?
-                              Color(uiColor: .darkGray) : .black )
+                          Text(musicVM.getAlbumName(index: feIndex))
+                            .font(.system(size: 36.0))
+                            .frame(
+                              maxWidth: .infinity,
+                              minHeight: 50,
+                              maxHeight: .infinity,
+                              alignment: .leading )
+                            .multilineTextAlignment(.leading)
+                            .lineLimit( 3 )
+                            .foregroundColor(
+                              tSelectedAlbum==feIndex ?
+                                Color(uiColor: .green) : .white )
+                            .background(
+                              tSelectedAlbum==feIndex ?
+                                Color(uiColor: .darkGray) : .black )
                         } // HStack
                         Divider()
-
                       } // VStack
                     } ) // NavigationLink
 
@@ -146,7 +146,7 @@ struct AlbumsView: View
 
         Spacer()
 
-        verticalAZsliderAlbums( scrollTo: $thumbedAlbum )
+        verticalAZsliderChosenAlbums( scrollTo: $thumbedAlbum )
           .frame( minWidth: 0, maxWidth: 20,
                  minHeight: 0, maxHeight: .infinity )
 
@@ -158,7 +158,7 @@ struct AlbumsView: View
         //-------------------------------------------
         // Navigation Bar
 
-    .navigationBarTitle( "Albums",
+    .navigationBarTitle( "Chosen Albums",
                          displayMode: .inline )
     
     .navigationBarItems(
@@ -199,13 +199,8 @@ struct AlbumsView: View
     {
       notAuthorized = !musicVM.authorizedToAccessMusic
 
-      if musicVM.selectedAlbumIndex != nil
-      {
-        tSelectedAlbum = musicVM.selectedAlbumIndex
-      }
-      
-      musicVM.selectedArtistIndex = nil
-      musicVM.retrieveAlbums()
+      musicVM.retrieveChosenAlbums()
+
     } // .onAppear
 
     .alert( isPresented: $notAuthorized )
@@ -216,12 +211,12 @@ struct AlbumsView: View
     } // .alert
 
   } // var body
-} // AlbumsView
+} // ChosenAlbumsView
 
 
 
 //--------------------------------------------
-struct verticalAZsliderAlbums: View {
+struct verticalAZsliderChosenAlbums: View {
   
   @EnvironmentObject var musicVM : MusicViewModel
   
@@ -364,7 +359,7 @@ struct verticalAZsliderAlbums: View {
     } // GeometryReader
   } // body
   
-} // verticalAZslider
+} // verticalAZsliderChosenAlbums
 
 
 

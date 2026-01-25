@@ -98,19 +98,16 @@ struct LaunchScreenView: View
           {
             
             // -----
-            NavigationLink(destination: TracksView() )
+            NavigationLink(destination: ChosenAlbumsView() )
             {
               MyRectangleView(
-                buttonLabel: "Now \nPlaying",
-                disabled: !musicVM.tracksAreQueued )
+                buttonLabel: "Chosen\nAlbums" )
             }
-            .disabled( !musicVM.tracksAreQueued )
             .simultaneousGesture(
               TapGesture().onEnded
               {
-                musicVM.restoreTracksState()
-              } )
-              .disabled( !musicVM.tracksAreQueued )
+                musicVM.clearSelections()
+              } ) // simultaneousGesture
 
 
             // -----

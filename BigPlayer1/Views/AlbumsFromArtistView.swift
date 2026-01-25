@@ -26,68 +26,106 @@ struct AlbumsFromArtistView: View
 //-------------------
   var body: some View 
   {
-    ScrollView
+    ZStack
     {
-      ScrollViewReader
-      { proxy in
-        ForEach( musicVM.MMAlbums.indices, id: \.self )
-        { feIndex in
-
-            NavigationLink(
-              destination: TracksView(),
+      // Background
+      
+      Color.black
+        .edgesIgnoringSafeArea( .all )
+      
+      // content
+      
+      ScrollView
+      {
+        ScrollViewReader
+        { proxy in
+          ForEach( musicVM.MMAlbums.indices, id: \.self )
+          { feIndex in
   
-            label:
-            {
-              VStack
+              NavigationLink(
+                destination: TracksView(),
+    
+              label:
               {
-                Text(musicVM.getAlbumName(index: feIndex))
-                  .font(.system(size: 36.0))
-                  .frame(
-                      maxWidth: .infinity,
-                     minHeight: 50,
-                     maxHeight: .infinity,
-                     alignment: .leading )
-                  .multilineTextAlignment(.leading)
-                  .lineLimit( 3 )
-                  .foregroundColor(
-                    tSelectedAlbum==feIndex ?
-                      Color(uiColor: .green) : .white )
-                  .background(
-                    tSelectedAlbum==feIndex ? 
-                      Color(uiColor: .darkGray) : .black )
+                VStack
+                {
+                  HStack( alignment: .firstTextBaseline,
+                            spacing: 12 )
+                  {
+                    Button(
+                      action:
+                      {
+                        musicVM.chooseAlbum( 
+                            chosenAlbumIndex: feIndex )
+                      }) 
+                      {
+                        // Using Label + iconOnly is superior
+                        // for accessibility
+                      Label( 
+                        musicVM.albumWasChosen( 
+                            chosenAlbumIndex: feIndex ) ? 
+                              "Completed" : "Mark as complete", 
+                          systemImage:
+                            musicVM.albumWasChosen( 
+                              chosenAlbumIndex: feIndex ) ? 
+                                "checkmark.circle.fill" : "circle")
+                        .labelStyle( .iconOnly ) // Hides the text label visually
+                        .font( .title )
+                        .foregroundColor( 
+                        musicVM.albumWasChosen( 
+                            chosenAlbumIndex: feIndex ) ? 
+                          .blue : .gray )
+                    } // Button
+                    .offset( y: -6 )
+  
+                    Text(musicVM.getAlbumName(index: feIndex))
+                    .font(.system(size: 36.0))
+                    .frame(
+                        maxWidth: .infinity,
+                       minHeight: 50,
+                       maxHeight: .infinity,
+                       alignment: .leading )
+                    .multilineTextAlignment(.leading)
+                    .lineLimit( 3 )
+                    .foregroundColor(
+                      tSelectedAlbum==feIndex ?
+                        Color(uiColor: .green) : .white )
+                    .background(
+                      tSelectedAlbum==feIndex ?
+                        Color(uiColor: .darkGray) : .black )
+                  } // HStack
                   Divider()
-
-              } // VStack
-            } ) // NavigationLink
-          .id( feIndex )
-
-          .simultaneousGesture(
-            TapGesture().onEnded
-            {
-              musicVM.setSelectedAlbum(
-                albumIndex: feIndex,
-                artistIndex: tSelectedArtist )
-
-              musicVM.retrieveTracksFromAlbum( 
-                albumIndex: feIndex )
-
-              musicVM.prepareTracksToPlay()
-            } )
-
-        } // ForEach
-        
-        .onChange(
-          of: scrollToCurrentAlbum,
-          perform:
-          { _ in
-            withAnimation(.spring() )
-            {
-              proxy.scrollTo(tSelectedAlbum, anchor: .center)
-            }
-          } ) // onChange
-      } // ScrollViewReader
-    } // ScrollView
-
+                } // VStack
+              } ) // NavigationLink
+            .id( feIndex )
+  
+            .simultaneousGesture(
+              TapGesture().onEnded
+              {
+                musicVM.setSelectedAlbum(
+                  albumIndex: feIndex,
+                  artistIndex: tSelectedArtist )
+  
+                musicVM.retrieveTracksFromAlbum( 
+                  albumIndex: feIndex )
+  
+                musicVM.prepareTracksToPlay()
+              } )
+  
+          } // ForEach
+          
+          .onChange(
+            of: scrollToCurrentAlbum,
+            perform:
+            { _ in
+              withAnimation(.spring() )
+              {
+                proxy.scrollTo(tSelectedAlbum, anchor: .center)
+              }
+            } ) // onChange
+        } // ScrollViewReader
+      } // ScrollView
+    } // ZStack
 
         //-------------------------------------------
         // Navigation Bar
@@ -143,8 +181,8 @@ struct AlbumsFromArtistView: View
       musicVM.selectedArtistIndex =
         tappedArtistIndex
 
-      musicVM.retrieveAlbums(
-        artistNameIndex: musicVM.selectedArtistIndex )
+      musicVM.retrieveArtistAlbums(
+        artistNameIndex: musicVM.selectedArtistIndex! )
 
     } // .onAppear
 

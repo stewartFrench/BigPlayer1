@@ -33,6 +33,20 @@ class MusicViewModel : ObservableObject
   @Published var    MMAlbumsAlphaMap : [Int] = []
   @Published var MMPlaylistsAlphaMap : [Int] = []
 
+            // I have a home version of Favorites here called "Chosen
+            // Albums".  "Chosen" means the function chooseAlbum() has
+            // been called (probably several times) to populate this
+            // array.  The array is saved to the fileystem so it will
+            // appear across invocations.
+            // The persistentIDs, as strings, of all the currently
+            // chosen albums are stashed in ChosenAlbumsIDs.
+
+     private var ChosenAlbumsIDs : [ String ] = []
+
+            // The filename of the Chosen Albums file.
+
+     private var ChosenAlbumsFilePath : String = "ChosenAlbums.data"
+
             // There is a single selected Artist, Album, Playlist, and
             // Track.  Each of these is an Intger, used as an index
             // into the list of Artists, Albums, Playlists, and Tracks
@@ -161,6 +175,7 @@ class MusicViewModel : ObservableObject
   {
     self.retrieveArtists()
     self.retrievePlaylists()
+    self.restoreChosenAlbums()
 
     MMPlayer.stop()
     MMTrackState = .kMusicManagerTrackStopped
@@ -249,7 +264,7 @@ class MusicViewModel : ObservableObject
 
 
 //---------------------------------------------------------
-  func retrieveAlbums( artistNameIndex: Int? = nil )
+  func retrieveAlbums()
   {
     let query : MPMediaQuery = MPMediaQuery.albums()
     let isPresent = MPMediaPropertyPredicate(
@@ -258,24 +273,11 @@ class MusicViewModel : ObservableObject
                      comparisonType: .equalTo )
     query.addFilterPredicate(isPresent)
 
-
-    if artistNameIndex != nil, 
-       artistNameIndex! < MMArtists.count
-    {
-      let tArtistName = getArtistName(index: artistNameIndex!)
-      let forArtist = 
-            MPMediaPropertyPredicate(
-                value: tArtistName,
-                forProperty: MPMediaItemPropertyArtist)
-      query.addFilterPredicate( forArtist )
-    }
-
     guard let tAlbums = query.collections else 
     {
       return
     }
-
-            // Sort the artists by name
+            // Sort the albums by name
 
     var tName1 = "Unknown Album"
     var tName2 = "Unknown Album"
@@ -300,9 +302,74 @@ class MusicViewModel : ObservableObject
       } // sorted
 
     MMAlbums = sortedAlbums
-    createAlbumsAlphaMap()
+
+    self.createAlbumsAlphaMap()
+    self.restoreChosenAlbums()
+
+//    self.createChosenAlbumsIDIndexMap()
 
   }  // retrieveAlbums
+
+
+
+//---------------------------------------------------------
+  func retrieveArtistAlbums( artistNameIndex: Int )
+  {
+    let query : MPMediaQuery = MPMediaQuery.albums()
+    let isPresent = MPMediaPropertyPredicate(
+                     value: false,
+                     forProperty: MPMediaItemPropertyIsCloudItem,
+                     comparisonType: .equalTo )
+    query.addFilterPredicate(isPresent)
+
+
+    if artistNameIndex < MMArtists.count
+    {
+      let tArtistName = getArtistName( index: artistNameIndex )
+      let forArtist = 
+            MPMediaPropertyPredicate(
+                value: tArtistName,
+                forProperty: MPMediaItemPropertyArtist)
+      query.addFilterPredicate( forArtist )
+    }
+
+    guard let tAlbums = query.collections else 
+    {
+      return
+    }
+
+            // Sort the albums by name
+
+    var tName1 = "Unknown Album"
+    var tName2 = "Unknown Album"
+
+    let sortedAlbums = 
+      tAlbums.sorted
+      { album1, album2 in
+
+        if let tRepresentativeItem1 = album1.representativeItem
+        {
+          tName1 = tRepresentativeItem1.albumTitle ?? "Unknown Album"
+        }
+
+        if let tRepresentativeItem2 = album2.representativeItem
+        {
+          tName2 = tRepresentativeItem2.albumTitle ?? "Unknown Album"
+        }
+
+        let t = tName1 < tName2
+
+        return t
+      } // sorted
+
+    MMAlbums = sortedAlbums
+
+    self.createAlbumsAlphaMap()
+    self.restoreChosenAlbums()
+
+//    self.createChosenAlbumsIDIndexMap()
+
+  }  // retrieveArtistAlbums
 
 
 
@@ -358,6 +425,53 @@ class MusicViewModel : ObservableObject
 
 
 //---------------------------------------------------------
+  func retrieveChosenAlbums()
+  {
+    let query : MPMediaQuery = MPMediaQuery.albums()
+    let isPresent = MPMediaPropertyPredicate(
+                     value: false,
+                     forProperty: MPMediaItemPropertyIsCloudItem,
+                     comparisonType: .equalTo )
+    query.addFilterPredicate(isPresent)
+
+    guard let tAlbums = query.collections else 
+    {
+      return
+    }
+            // Sort the albums by name
+
+    var tName1 = "Unknown Album"
+    var tName2 = "Unknown Album"
+
+    let sortedAlbums = 
+      tAlbums.sorted
+      { album1, album2 in
+
+        if let tRepresentativeItem1 = album1.representativeItem
+        {
+          tName1 = tRepresentativeItem1.albumTitle ?? "Unknown Album"
+        }
+
+        if let tRepresentativeItem2 = album2.representativeItem
+        {
+          tName2 = tRepresentativeItem2.albumTitle ?? "Unknown Album"
+        }
+
+        let t = tName1 < tName2
+
+        return t
+      } // sorted
+
+    MMAlbums = sortedAlbums
+    self.removeUninterestingAlbums()
+    
+    self.createAlbumsAlphaMap()
+
+  }  // retrieveChosenAlbums
+
+
+
+//---------------------------------------------------------
   func retrieveRecentlyPlayedAlbums( artistNameIndex: Int? = nil )
   {
     let query : MPMediaQuery = MPMediaQuery.albums()
@@ -404,6 +518,196 @@ class MusicViewModel : ObservableObject
       }
     MMAlbums = sortedAlbums
   }  // retrieveRecentlyPlayedAlbums
+
+
+  //---------------------------------------------------------
+  func chooseAlbum( chosenAlbumIndex: Int )
+  {
+
+            // Choose an album as interesting.  If the album is
+            // already chosen then do nothing.
+
+    if MMAlbums.count >= 0 &&
+       chosenAlbumIndex < MMAlbums.count
+    {
+      let t = 
+        MMAlbums[ chosenAlbumIndex ].persistentID
+
+      let tPID = "\(t)"
+   
+      if !ChosenAlbumsIDs.contains( tPID )
+      {
+        ChosenAlbumsIDs.append( tPID )
+      } // if
+
+    } // if
+
+    saveChosenAlbums()
+
+  } // chooseAlbum
+
+
+
+  //---------------------------------------------------------
+  func unchooseAlbum( chosenAlbumIndex: Int )
+  {
+
+            // Unchoose an album.  If the album is
+            // not chosen then do nothing.
+
+    if MMAlbums.count >= 0 &&
+       chosenAlbumIndex < MMAlbums.count
+    {
+      let t = 
+        MMAlbums[ chosenAlbumIndex ].persistentID
+
+      let tPID = "\(t)"
+   
+      if ChosenAlbumsIDs.contains( tPID )
+      {
+        let tIndex = ChosenAlbumsIDs.firstIndex( of: tPID )!
+        ChosenAlbumsIDs.remove( at: tIndex )
+      } // if
+
+    } // if
+
+    saveChosenAlbums()
+    retrieveChosenAlbums()
+
+  } // chooseAlbum
+
+
+
+  //---------------------------------------------------------
+  func albumWasChosen( chosenAlbumIndex: Int ) -> Bool
+  {
+            // Return True if the album is interesting otherwise false.
+
+    if MMAlbums.count >= 0 &&
+       chosenAlbumIndex < MMAlbums.count
+    {
+      let t = 
+        MMAlbums[ chosenAlbumIndex ].persistentID
+
+      let tPID = "\(t)"
+
+      if ChosenAlbumsIDs.contains( tPID ) 
+      {
+        return true
+      } // if
+
+    }
+    return false
+
+  }  // albumWasChosen
+
+
+  //---------------------------------------------------------
+  func saveChosenAlbums()
+  {
+            // Call this function to save the chosen albums array to
+            // the filesystem.
+
+//    var ChosenAlbumsIDs : [ String ] = []
+
+    if ChosenAlbumsIDs.count > 0
+    {
+
+      let manager = FileManager.default
+
+      guard 
+        let url = manager.urls(
+                    for: .documentDirectory, 
+                     in: .userDomainMask).first
+      else { return }
+
+      do
+      {
+
+        let fileURL = 
+          url.appendingPathComponent(
+              ChosenAlbumsFilePath )
+  
+        let data = try JSONEncoder().encode( ChosenAlbumsIDs )
+        try data.write( to: fileURL )
+      }
+      catch
+      {
+        print( "Failed to save Chosen data: \(error.localizedDescription)" )
+      } // do
+  
+    } // if
+
+  } // saveChosenAlbums
+
+
+  //---------------------------------------------------------
+  func restoreChosenAlbums()
+  {
+            // Call this function to restore the chosen albums array
+            // from the filesystem.
+
+    let manager = FileManager.default
+
+    guard 
+      let url = manager.urls(
+                  for: .documentDirectory, 
+                   in: .userDomainMask).first
+     else { return }
+
+    let fileURL = 
+      url.appendingPathComponent(
+          ChosenAlbumsFilePath )
+  
+    do
+    {
+      let data = try Data( contentsOf: fileURL )
+      ChosenAlbumsIDs = 
+              try JSONDecoder().decode(
+                        [String].self, 
+                        from: data )
+    } // do
+    catch
+    {
+      print("Error decoding JSON: \(error)")
+      return
+    } // catch
+
+  } // restoreChosenAlbums
+
+
+
+  //---------------------------------------------------------
+  func removeUninterestingAlbums()
+  {
+            // Run through MMAlbums and remove all the elements that
+            // do not have a presistentID in the ChosenAlbumsID.  This
+            // is called to prune the albums array down to just the
+            // chosen albums.
+
+    var albums : [MPMediaItemCollection] = []
+
+    if MMAlbums.count > 0
+    {
+      for (tIndex, tAlbum) in MMAlbums.enumerated()
+      {
+        let t = 
+          tAlbum.persistentID
+
+        let tPID = "\(t)"
+        
+        if ChosenAlbumsIDs.contains( tPID )
+        {
+          albums.append( MMAlbums[ tIndex ] )
+        } // if
+      } // for
+
+      MMAlbums = albums
+
+    } // if
+
+    
+  } // removeUninterestingAlbums
 
 
   //---------------------------------------------------------
@@ -514,7 +818,8 @@ class MusicViewModel : ObservableObject
       if MMAlbumsAlphaMap[25] < MMAlbumsAlphaMap[24]
       {
         MMAlbumsAlphaMap[25] = MMAlbumsAlphaMap[24]
-      }
+
+}
 
     }
   } // createAlbumsAlphaMap

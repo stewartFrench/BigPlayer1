@@ -112,10 +112,11 @@ struct PlaylistsView: View
           Divider()
 
           Spacer()
-          Spacer()
 
-          verticalAZsliderPlaylists( scrollTo: $thumbedPlaylist )
-            .frame(minWidth: 0, maxWidth: 20)
+        verticalAZsliderPlaylists( scrollTo: $thumbedPlaylist )
+          .frame( minWidth: 0, maxWidth: 20,
+                 minHeight: 0, maxHeight: .infinity )
+
 
         } // HStack
     } // ZStack

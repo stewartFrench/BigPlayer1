@@ -36,21 +36,51 @@ struct NewestAlbumsView: View
             {
               VStack
               {
-                Text(musicVM.getAlbumName(index: feIndex))
-                .font(.system(size: 36.0))
-                .frame(
-                    maxWidth: .infinity,
-                   minHeight: 50,
-                   maxHeight: .infinity,
-                   alignment: .leading )
-                .multilineTextAlignment(.leading)
-                .lineLimit( 3 )
-                .foregroundColor(
-                  tSelectedAlbum==feIndex ?
-                    Color(uiColor: .green) : .white )
-                .background(
-                  tSelectedAlbum==feIndex ?
-                    Color(uiColor: .darkGray) : .black )
+                HStack( alignment: .firstTextBaseline,
+                          spacing: 12 )
+                {
+                  Button(
+                    action:
+                    {
+                      musicVM.chooseAlbum( 
+                          chosenAlbumIndex: feIndex )
+                    }) 
+                    {
+                      // Using Label + iconOnly is superior
+                      // for accessibility
+                    Label( 
+                      musicVM.albumWasChosen( 
+                          chosenAlbumIndex: feIndex ) ? 
+                            "Completed" : "Mark as complete", 
+                        systemImage:
+                          musicVM.albumWasChosen( 
+                            chosenAlbumIndex: feIndex ) ? 
+                              "checkmark.circle.fill" : "circle")
+                      .labelStyle( .iconOnly ) // Hides the text label visually
+                      .font( .title )
+                      .foregroundColor( 
+                      musicVM.albumWasChosen( 
+                          chosenAlbumIndex: feIndex ) ? 
+                        .blue : .gray )
+                  } // Button
+                  .offset( y: -6 )
+
+                  Text(musicVM.getAlbumName(index: feIndex))
+                  .font(.system(size: 36.0))
+                  .frame(
+                      maxWidth: .infinity,
+                     minHeight: 50,
+                     maxHeight: .infinity,
+                     alignment: .leading )
+                  .multilineTextAlignment(.leading)
+                  .lineLimit( 3 )
+                  .foregroundColor(
+                    tSelectedAlbum==feIndex ?
+                      Color(uiColor: .green) : .white )
+                  .background(
+                    tSelectedAlbum==feIndex ?
+                      Color(uiColor: .darkGray) : .black )
+                } // HStack
                 Divider()
               } // VStack
             } ) // NavigationLink
