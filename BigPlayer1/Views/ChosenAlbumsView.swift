@@ -2,7 +2,7 @@
 //  ChosenAlbumsView.swift
 //  BigPlayer1
 //
-//  Created by Stewart French on 2/2/23.
+//  Created by Stewart French on 01/25/2026
 //
 
 import SwiftUI
@@ -61,8 +61,8 @@ struct ChosenAlbumsView: View
                             action:
                             {
                               musicVM.unchooseAlbum( 
-                                  chosenAlbumIndex: feIndex )
-                            }) 
+                                chosenAlbumIndex: feIndex )
+                            })
                             {
                               // Using Label + iconOnly is superior
                               // for accessibility
@@ -199,6 +199,12 @@ struct ChosenAlbumsView: View
     {
       notAuthorized = !musicVM.authorizedToAccessMusic
 
+      if musicVM.selectedAlbumIndex != nil
+      {
+        tSelectedAlbum = musicVM.selectedAlbumIndex
+      }
+      
+      musicVM.selectedArtistIndex = nil
       musicVM.retrieveChosenAlbums()
 
     } // .onAppear
@@ -207,10 +213,11 @@ struct ChosenAlbumsView: View
     {
       Alert( 
         title: Text( "Not Allowed to Access the Music Library." ),
-        message: Text( "Go to Settings > One Big Player\nto Allow Access to Apple Music" ) )
+        message: Text( "Go to Settings > Apps >\nOne Big Player\nto Allow Access to Apple Music" ) )
     } // .alert
 
   } // var body
+
 } // ChosenAlbumsView
 
 
@@ -364,3 +371,4 @@ struct verticalAZsliderChosenAlbums: View {
 
 
 //--------------------------------------------
+

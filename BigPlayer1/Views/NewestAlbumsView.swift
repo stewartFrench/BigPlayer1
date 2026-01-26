@@ -173,7 +173,7 @@ struct NewestAlbumsView: View
     {
       Alert( 
         title: Text( "Not Allowed to Access the Music Library." ),
-        message: Text( "Go to Settings > One Big Player\nto Allow Access to Apple Music" ) )
+        message: Text( "Go to Settings > Apps >\nOne Big Player\nto Allow Access to Apple Music" ) )
     } // .alert
 
   } // var body

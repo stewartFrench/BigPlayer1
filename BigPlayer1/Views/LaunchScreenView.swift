@@ -111,20 +111,31 @@ struct LaunchScreenView: View
 
 
             // -----
-            NavigationLink(destination: ResumeView()) 
+            NavigationLink(destination:
+                    musicVM.tracksAreQueued ? 
+                    AnyView( TracksView() ) : 
+                    AnyView( ResumeView() ) )
             {
               MyRectangleView(
                   buttonLabel: "Resume",
                   disabled: !musicVM.ASusable )
             }
-            .disabled( !musicVM.ASusable )
+            .disabled( !musicVM.ASusable &&
+                       !musicVM.tracksAreQueued )
 
             .simultaneousGesture(
               TapGesture().onEnded
               {
-                musicVM.restoreTracksFromAppStorage()
-                musicVM.prepareTracksToPlay( fromAppStorage: true )
-                musicVM.playSelectedTrack()
+                if !musicVM.tracksAreQueued
+                {
+                   musicVM.restoreTracksFromAppStorage()
+                   musicVM.prepareTracksToPlay( fromAppStorage: true )
+                   musicVM.playSelectedTrack()
+                }
+                else
+                {
+                  musicVM.restoreTracksState()
+                } // if
               } ) // simultaneousGesture
               .disabled( !musicVM.ASusable )
 
