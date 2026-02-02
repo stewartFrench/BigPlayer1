@@ -60,8 +60,12 @@ struct ChosenAlbumsView: View
                           Button(
                             action:
                             {
-                              musicVM.unchooseAlbum( 
-                                chosenAlbumIndex: feIndex )
+                              withAnimation( 
+                                 .easeInOut( duration: 0.5 ) )
+                              {
+                                musicVM.unchooseAlbum( 
+                                  chosenAlbumIndex: feIndex )
+                              } // withAnimation
                             })
                             {
                               // Using Label + iconOnly is superior
