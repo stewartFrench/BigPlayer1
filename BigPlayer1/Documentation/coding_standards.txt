@@ -1,0 +1,23 @@
+
+2026/02/13 - S.French
+
+I want all the Swift code to follow these coding standards.
+
+- Add a comment after every '}' to indicate what it is closing.  For
+  example, "// HStack" or "// ScrollView"  or "// if"  etc
+- Place all function parameters on separate lines and aligning the
+  ':'s  up.
+
+- Put '{' and '}' on separate lines and have matching braces line up
+  vertically.
+
+- Place all function parameters on separate lines and align
+  the ':'s vertically.
+
+- When indenting use only 2 spaces.
+
+- Indent all whole line comments by 12 spaces.
+  The file header comment can start in column 1.
+
+- Separate all function definitions with two newlines
+  then a line of "----------------" 16 dashes).

@@ -16,10 +16,13 @@
 		712E775229817B8800F016D8 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712E775129817B8800F016D8 /* LaunchScreenView.swift */; };
 		712E77542981935F00F016D8 /* ArtistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 712E77532981935F00F016D8 /* ArtistsView.swift */; };
 		713FB81A29C3AC5000117C9D /* ResumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713FB81929C3AC5000117C9D /* ResumeView.swift */; };
+		71598E622F3FD3EF00047BE5 /* coding_standards.txt in Resources */ = {isa = PBXBuildFile; fileRef = 71598E612F3FD3DD00047BE5 /* coding_standards.txt */; };
 		717A5B42298C21F20004DA18 /* AlbumsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717A5B41298C21F20004DA18 /* AlbumsView.swift */; };
 		717A5B46298C38EE0004DA18 /* PlaylistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717A5B45298C38EE0004DA18 /* PlaylistsView.swift */; };
 		71891EB829B4FB21007DF502 /* TrackDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71891EB729B4FB21007DF502 /* TrackDetailsView.swift */; };
 		71A51A4129A92100007F4483 /* NewestAlbumsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A51A4029A92100007F4483 /* NewestAlbumsView.swift */; };
+		71D664702F6AED85004E58D5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D6646F2F6AED85004E58D5 /* SettingsView.swift */; };
+		71D664722F6AF658004E58D5 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D664712F6AF658004E58D5 /* KeychainHelper.swift */; };
 		71E9F34329B8E07B00783373 /* TracksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E9F34229B8E07B00783373 /* TracksView.swift */; };
 		71F122582F23BB1C00669F63 /* ChosenAlbumsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F122572F23BB0300669F63 /* ChosenAlbumsView.swift */; };
 /* End PBXBuildFile section */
@@ -36,10 +39,13 @@
 		712E77532981935F00F016D8 /* ArtistsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistsView.swift; sourceTree = "<group>"; };
 		712E7755298197C700F016D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		713FB81929C3AC5000117C9D /* ResumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeView.swift; sourceTree = "<group>"; };
+		71598E612F3FD3DD00047BE5 /* coding_standards.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = coding_standards.txt; sourceTree = "<group>"; };
 		717A5B41298C21F20004DA18 /* AlbumsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsView.swift; sourceTree = "<group>"; };
 		717A5B45298C38EE0004DA18 /* PlaylistsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistsView.swift; sourceTree = "<group>"; };
 		71891EB729B4FB21007DF502 /* TrackDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailsView.swift; sourceTree = "<group>"; };
 		71A51A4029A92100007F4483 /* NewestAlbumsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewestAlbumsView.swift; sourceTree = "<group>"; };
+		71D6646F2F6AED85004E58D5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		71D664712F6AF658004E58D5 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		71E9F34229B8E07B00783373 /* TracksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksView.swift; sourceTree = "<group>"; };
 		71F122572F23BB0300669F63 /* ChosenAlbumsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChosenAlbumsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -74,6 +80,7 @@
 		712E773A298177A800F016D8 /* BigPlayer1 */ = {
 			isa = PBXGroup;
 			children = (
+				71376A9D2F3A458600E15695 /* Documentation */,
 				712E7755298197C700F016D8 /* Info.plist */,
 				712E773B298177A800F016D8 /* BigPlayer1App.swift */,
 				712E774A2981780400F016D8 /* Views */,
@@ -114,6 +121,7 @@
 				71F122572F23BB0300669F63 /* ChosenAlbumsView.swift */,
 				71891EB729B4FB21007DF502 /* TrackDetailsView.swift */,
 				713FB81929C3AC5000117C9D /* ResumeView.swift */,
+				71D6646F2F6AED85004E58D5 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -130,8 +138,17 @@
 			isa = PBXGroup;
 			children = (
 				712E774D298179B700F016D8 /* SLFLog.swift */,
+				71D664712F6AF658004E58D5 /* KeychainHelper.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		71376A9D2F3A458600E15695 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				71598E612F3FD3DD00047BE5 /* coding_standards.txt */,
+			);
+			path = Documentation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,7 +181,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 2620;
+				LastUpgradeCheck = 2630;
 				TargetAttributes = {
 					712E7737298177A800F016D8 = {
 						CreatedOnToolsVersion = 14.2;
@@ -198,6 +215,7 @@
 			files = (
 				712E7743298177AA00F016D8 /* Preview Assets.xcassets in Resources */,
 				712E7740298177AA00F016D8 /* Assets.xcassets in Resources */,
+				71598E622F3FD3EF00047BE5 /* coding_standards.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,11 +233,13 @@
 				712E775029817A0200F016D8 /* MusicViewModel.swift in Sources */,
 				71E9F34329B8E07B00783373 /* TracksView.swift in Sources */,
 				712E77542981935F00F016D8 /* ArtistsView.swift in Sources */,
+				71D664702F6AED85004E58D5 /* SettingsView.swift in Sources */,
 				71891EB829B4FB21007DF502 /* TrackDetailsView.swift in Sources */,
 				717A5B42298C21F20004DA18 /* AlbumsView.swift in Sources */,
 				712E773C298177A800F016D8 /* BigPlayer1App.swift in Sources */,
 				717A5B46298C38EE0004DA18 /* PlaylistsView.swift in Sources */,
 				712E774E298179B700F016D8 /* SLFLog.swift in Sources */,
+				71D664722F6AF658004E58D5 /* KeychainHelper.swift in Sources */,
 				713FB81A29C3AC5000117C9D /* ResumeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,7 +391,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stewart.french.BigPlayer1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = NO;
@@ -407,7 +427,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stewart.french.BigPlayer1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = NO;
