@@ -18,18 +18,23 @@ struct SettingsView: View
   @State private var selectedVoiceIdentifier: String = ""
   @State private var availableVoices: [AVSpeechSynthesisVoice] = []
   @State private var speechSynthesizer: AVSpeechSynthesizer = AVSpeechSynthesizer()
+  @State private var selectedModelId: String = ""
+  @State private var customModelId: String = ""
+  @State private var useCustomModel: Bool = false
   
 
   //---------------------------------------
 
   var body: some View
   {
-    VStack(spacing: 20)
+    ScrollView
     {
-      Text("Settings")
-        .font(.largeTitle)
-        .fontWeight(.bold)
-        .padding(.top)
+      VStack(spacing: 20)
+      {
+        Text("Settings")
+          .font(.largeTitle)
+          .fontWeight(.bold)
+          .padding(.top)
       
       Divider()
       
@@ -142,6 +147,62 @@ struct SettingsView: View
       
       VStack(alignment: .leading, spacing: 10)
       {
+        Text("Claude Model")
+          .font(.headline)
+        
+        Text("Choose the AI model for research responses")
+          .font(.subheadline)
+          .foregroundColor(.gray)
+        
+        Toggle("Use Custom Model", isOn: $useCustomModel)
+          .padding(.vertical, 5)
+          .onChange(of: useCustomModel) { _ in
+            saveModelSelection()
+          } // onChange
+        
+        if useCustomModel
+        {
+          TextField("Enter model ID (e.g., claude-opus-4-7)", text: $customModelId)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .autocapitalization(.none)
+            .disableAutocorrection(true)
+            .padding(.vertical, 5)
+          
+          Button(action: saveModelSelection)
+          {
+            Text("Save Custom Model")
+              .frame(maxWidth: .infinity)
+              .padding()
+              .background(customModelId.isEmpty ? Color.gray : Color.blue)
+              .foregroundColor(.white)
+              .cornerRadius(10)
+          } // Button
+          .disabled(customModelId.isEmpty)
+        } // if
+        else
+        {
+          Picker("Model", selection: $selectedModelId)
+          {
+            Text("Haiku 4.5 (Fast)")
+              .tag("claude-haiku-4-5-20251001")
+            Text("Sonnet 4.6 (Balanced)")
+              .tag("claude-sonnet-4-6")
+            Text("Opus 4.6 (Most Capable)")
+              .tag("claude-opus-4-6")
+          } // Picker
+          .pickerStyle(.menu)
+          .padding(.vertical, 5)
+          .onChange(of: selectedModelId) { _ in
+            saveModelSelection()
+          } // onChange
+        } // else
+      } // VStack
+      .padding(.horizontal)
+      
+      Divider()
+      
+      VStack(alignment: .leading, spacing: 10)
+      {
         Text("About API Keys")
           .font(.headline)
         
@@ -161,12 +222,14 @@ struct SettingsView: View
       .padding(.horizontal)
       
       Spacer()
-    }
+      } // VStack
+    } // ScrollView
     .onAppear
     {
       loadAPIKey()
       loadAvailableVoices()
       loadSelectedVoice()
+      loadSelectedModel()
     } // onAppear
     .alert("API Key Saved", isPresented: $showingSaveConfirmation)
     {
@@ -359,6 +422,47 @@ struct SettingsView: View
     
     speechSynthesizer.speak(utterance)
   } // testVoice
+  
+  //---------------------------------------
+
+  private func loadSelectedModel()
+  {
+    useCustomModel = UserDefaults.standard.bool(forKey: "UseCustomClaudeModel")
+    
+    if useCustomModel
+    {
+      customModelId = UserDefaults.standard.string(forKey: "CustomClaudeModel") ?? ""
+    } // if
+    else
+    {
+      if let savedModelId = UserDefaults.standard.string(forKey: "SelectedClaudeModel")
+      {
+        selectedModelId = savedModelId
+      } // if
+      else
+      {
+        // Default to Haiku 4.5
+        selectedModelId = "claude-haiku-4-5-20251001"
+      } // else
+    } // else
+  } // loadSelectedModel
+  
+  //---------------------------------------
+
+  private func saveModelSelection()
+  {
+    UserDefaults.standard.set(useCustomModel, forKey: "UseCustomClaudeModel")
+    
+    if useCustomModel
+    {
+      UserDefaults.standard.set(customModelId, forKey: "CustomClaudeModel")
+      UserDefaults.standard.set(customModelId, forKey: "SelectedClaudeModel")
+    } // if
+    else
+    {
+      UserDefaults.standard.set(selectedModelId, forKey: "SelectedClaudeModel")
+    } // else
+  } // saveModelSelection
   
 } // SettingsView
 

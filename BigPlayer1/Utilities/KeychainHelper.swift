@@ -14,7 +14,10 @@ import Security
 class KeychainHelper
 {
   static let shared = KeychainHelper()
-  
+
+  // Shared keychain access group for sharing data between apps
+  private let keychainAccessGroup = "SDK22Z6CLU.com.stewart.french.shared"
+
   private init() {}
   
   //---------------------------------------
@@ -33,20 +36,23 @@ class KeychainHelper
             // First, delete any existing value for this key
 
     delete(forKey: key)
-    
+
             // Create the query dictionary
 
-    let query: [String: Any] = [
+    var query: [String: Any] = [
       kSecClass as String: kSecClassGenericPassword,
       kSecAttrAccount as String: key,
       kSecValueData as String: data,
       kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlocked
     ]
-    
+
+    // Add keychain access group for sharing between apps
+    query[kSecAttrAccessGroup as String] = keychainAccessGroup
+
             // Add the item to the Keychain
 
     let status = SecItemAdd(query as CFDictionary, nil)
-    
+
     return status == errSecSuccess
 
   } // save
@@ -61,23 +67,26 @@ class KeychainHelper
   {
             // Create the query dictionary
 
-    let query: [String: Any] = [
+    var query: [String: Any] = [
       kSecClass as String: kSecClassGenericPassword,
       kSecAttrAccount as String: key,
       kSecReturnData as String: true,
       kSecMatchLimit as String: kSecMatchLimitOne
     ]
-    
+
+    // Add keychain access group for sharing between apps
+    query[kSecAttrAccessGroup as String] = keychainAccessGroup
+
     var result: AnyObject?
     let status = SecItemCopyMatching(query as CFDictionary, &result)
-    
+
     guard status == errSecSuccess,
           let data = result as? Data,
           let string = String(data: data, encoding: .utf8) else
     {
       return nil
     }
-    
+
     return string
 
   } // retrieve
@@ -93,15 +102,18 @@ class KeychainHelper
   {
             // Create the query dictionary
 
-    let query: [String: Any] = [
+    var query: [String: Any] = [
       kSecClass as String: kSecClassGenericPassword,
       kSecAttrAccount as String: key
     ]
-    
+
+    // Add keychain access group for sharing between apps
+    query[kSecAttrAccessGroup as String] = keychainAccessGroup
+
             // Delete the item from the Keychain
 
     let status = SecItemDelete(query as CFDictionary)
-    
+
             // Success or item not found are both acceptable outcomes
 
     return status == errSecSuccess || status == errSecItemNotFound

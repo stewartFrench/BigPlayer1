@@ -66,6 +66,7 @@ struct TrackDetailsView: View
   @State var researchTask : Task<Void, Never>? = nil
   @State var wasMusicPlaying : Bool = false
   @State var showingAPIKeyAlert : Bool = false
+  @State var originalVolume : Float = 0.5
 
   
   //---------------------------------------
@@ -239,7 +240,7 @@ struct TrackDetailsView: View
     )
     
     let requestBody: [String: Any] = [
-      "model": "claude-3-haiku-20240307",
+      "model": UserDefaults.standard.string(forKey: "SelectedClaudeModel") ?? "claude-haiku-4-5-20251001",
       "max_tokens": 1024,
       "messages": [
         [
@@ -309,6 +310,32 @@ struct TrackDetailsView: View
     return AVSpeechSynthesisVoice(language: "en-US")
   } // getSelectedVoice
   
+  
+  //---------------------------------------
+  func getSystemVolume() -> Float
+  {
+    let volumeView = MPVolumeView()
+    if let view = volumeView.subviews.first as? UISlider
+    {
+      return view.value
+    }
+    return 0.5 // Default fallback
+  } // getSystemVolume
+  
+  
+  //---------------------------------------
+  func setSystemVolume(_ volume: Float)
+  {
+    let volumeView = MPVolumeView()
+    if let view = volumeView.subviews.first as? UISlider
+    {
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.1)
+      {
+        view.value = volume
+      }
+    }
+  } // setSystemVolume
+  
   //---------------------------------------
   @MainActor
   func speakText(
@@ -317,19 +344,35 @@ struct TrackDetailsView: View
   {
 //    print("🔵 speakText called with text length: \(text.count)")
     
-          // Pause music now, just before speaking
+    // Pause music before speaking
     if wasMusicPlaying && musicVM.isPlaying()
     {
       musicVM.pauseSelectedTrack()
 //      print("🔵 Music paused before speaking")
-    } // if
+    }
+    
+    // Configure audio session for CarPlay compatibility
+    do
+    {
+      let audioSession = AVAudioSession.sharedInstance()
+      try audioSession.setCategory(
+        .playback,
+        mode: .voicePrompt,
+        options: []
+      )
+      try audioSession.setActive(true)
+    }
+    catch
+    {
+      print("⚠️ Failed to configure audio session: \(error)")
+    }
     
     isSpeaking = true
     
     Task { @MainActor in
             // Create synthesizer synchronously
       let localSynthesizer = AVSpeechSynthesizer()
-      localSynthesizer.usesApplicationAudioSession = false
+      localSynthesizer.usesApplicationAudioSession = true
       speechSynthesizer = localSynthesizer
       localSynthesizer.delegate = speechCoordinator
       
@@ -354,12 +397,13 @@ struct TrackDetailsView: View
       {
         isSpeaking = false
         
-              // Resume music if it was playing
+        // Resume music if it was playing
         if wasMusicPlaying
         {
           musicVM.playSelectedTrack()
           wasMusicPlaying = false
-        } // if
+//          print("🔵 Music resumed after speaking")
+        }
       } // if
     } // Task
   } // speakText
