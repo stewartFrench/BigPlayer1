@@ -28,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7117B25C2F942C8700438B28 /* BigPlayer1Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BigPlayer1Debug.entitlements; sourceTree = "<group>"; };
 		711D14BB29968D0F009B93CA /* AlbumsFromArtistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsFromArtistView.swift; sourceTree = "<group>"; };
 		712E7738298177A800F016D8 /* BigPlayer1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BigPlayer1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		712E773B298177A800F016D8 /* BigPlayer1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigPlayer1App.swift; sourceTree = "<group>"; };
@@ -80,6 +81,7 @@
 		712E773A298177A800F016D8 /* BigPlayer1 */ = {
 			isa = PBXGroup;
 			children = (
+				7117B25C2F942C8700438B28 /* BigPlayer1Debug.entitlements */,
 				71376A9D2F3A458600E15695 /* Documentation */,
 				712E7755298197C700F016D8 /* Info.plist */,
 				712E773B298177A800F016D8 /* BigPlayer1App.swift */,
@@ -374,6 +376,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BigPlayer1/BigPlayer1Debug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BigPlayer1/Preview Content\"";
@@ -391,13 +394,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stewart.french.BigPlayer1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -427,13 +430,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stewart.french.BigPlayer1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
