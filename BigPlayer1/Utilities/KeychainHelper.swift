@@ -31,6 +31,7 @@ class KeychainHelper
   {
     guard let data = value.data(using: .utf8) else
     {
+      print("⚠️ KeychainHelper: Failed to convert value to data")
       return false
     }
             // First, delete any existing value for this key
@@ -51,7 +52,24 @@ class KeychainHelper
 
             // Add the item to the Keychain
 
-    let status = SecItemAdd(query as CFDictionary, nil)
+    var status = SecItemAdd(query as CFDictionary, nil)
+
+    // If it fails with access group, try without it
+    if status != errSecSuccess
+    {
+      print("⚠️ KeychainHelper: Save failed with access group (status: \(status)), trying without...")
+      query.removeValue(forKey: kSecAttrAccessGroup as String)
+      status = SecItemAdd(query as CFDictionary, nil)
+    }
+
+    if status == errSecSuccess
+    {
+      print("✅ KeychainHelper: Successfully saved key '\(key)'")
+    }
+    else
+    {
+      print("❌ KeychainHelper: Failed to save key '\(key)' (status: \(status))")
+    }
 
     return status == errSecSuccess
 
@@ -78,15 +96,26 @@ class KeychainHelper
     query[kSecAttrAccessGroup as String] = keychainAccessGroup
 
     var result: AnyObject?
-    let status = SecItemCopyMatching(query as CFDictionary, &result)
+    var status = SecItemCopyMatching(query as CFDictionary, &result)
+
+    // If it fails with access group, try without it
+    if status != errSecSuccess
+    {
+      print("⚠️ KeychainHelper: Retrieve failed with access group (status: \(status)), trying without...")
+      query.removeValue(forKey: kSecAttrAccessGroup as String)
+      result = nil
+      status = SecItemCopyMatching(query as CFDictionary, &result)
+    }
 
     guard status == errSecSuccess,
           let data = result as? Data,
           let string = String(data: data, encoding: .utf8) else
     {
+      print("❌ KeychainHelper: Failed to retrieve key '\(key)' (status: \(status))")
       return nil
     }
 
+    print("✅ KeychainHelper: Successfully retrieved key '\(key)'")
     return string
 
   } // retrieve
@@ -112,7 +141,15 @@ class KeychainHelper
 
             // Delete the item from the Keychain
 
-    let status = SecItemDelete(query as CFDictionary)
+    var status = SecItemDelete(query as CFDictionary)
+
+    // If it fails with access group (and it's not just "not found"), try without it
+    if status != errSecSuccess && status != errSecItemNotFound
+    {
+      print("⚠️ KeychainHelper: Delete failed with access group (status: \(status)), trying without...")
+      query.removeValue(forKey: kSecAttrAccessGroup as String)
+      status = SecItemDelete(query as CFDictionary)
+    }
 
             // Success or item not found are both acceptable outcomes
 
